@@ -32,7 +32,13 @@ const authenticate = async (req, res, next) => {
       throw createError({ message: "User not Found", statusCode: 404 });
     }
 
-    req.user = user;
+    const { password, createdDate, updatedDate, ...userData } = user
+    req.user = userData
+    // req.user = user;
+
+    // delete req.user.password
+    // console.log("user data", user)
+    console.log("user data", userData)
 
     if (user.isAdmin) {
       req.user.isAdmin = true;

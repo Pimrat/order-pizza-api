@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const uploadService = require("../services/uploadService");
-
+const fs = require("fs/promises")
 const prisma = new PrismaClient();
 const productController = {};
 
@@ -33,6 +33,8 @@ productController.createProduct = async (req, res, next) => {
   } catch (err) {
     next(err);
     // console.log(err.message);
+  } finally {
+    await fs.unlink(req.file.path)
   }
 };
 

@@ -91,9 +91,9 @@ userController.login = async (req, res, next) => {
     res
       .status(201)
       .json({ message: "Login success", accessToken, redirectUrl });
-    res
-      .status(201)
-      .json({ message: "Login success" });
+    // res
+    //   .status(201)
+    //   .json({ message: "Login success" });
   } catch (err) {
     console.error(err);
     next(err);
@@ -102,16 +102,20 @@ userController.login = async (req, res, next) => {
 
 userController.me = async (req, res, next) => {
   try {
-    const user = prisma.user.findUnique({ where: { id: req.user.id } });
+    // const user = prisma.user.findUnique({ where: { id: req.user.id } });
 
-    if (!user) {
-      throw createError({ message: "user not found", statusCode: 404 });
+
+    // if (!user) {
+    //   throw createError({ message: "user not found", statusCode: 404 });
+    // }
+    if(!req.user){
+      throw createError({ message: "user not found", statusCode: 400 });
     }
+    res.status(200).json({ user: req.user });
   } catch (err) {
     next(err);
   }
 
-  res.status(200).json({ user: req.user });
 };
 
 userController.getProfile = async (req, res, next) => {
