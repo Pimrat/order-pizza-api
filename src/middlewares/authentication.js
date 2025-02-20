@@ -34,11 +34,13 @@ const authenticate = async (req, res, next) => {
 
     const { password, createdDate, updatedDate, ...userData } = user
     req.user = userData
-    // req.user = user;
 
+    // console.log("user data2", userData)
+
+    //// using this way is another choice
+    // req.user = user;
     // delete req.user.password
-    // console.log("user data", user)
-    console.log("user data", userData)
+    // console.log("user data1", user)
 
     if (user.isAdmin) {
       req.user.isAdmin = true;
